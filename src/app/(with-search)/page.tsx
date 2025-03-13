@@ -1,6 +1,7 @@
 import style from "@/app/(with-search)/page.module.css";
 import { AllGoods } from "@/components/all-goods";
 import { RandomGoods } from "@/components/random-goods";
+import GoodItemSkeleton from "@/components/skeleton/good-item-skeleton";
 import GoodItemSkeletonList from "@/components/skeleton/good-item-skeleton-list";
 import { Suspense } from "react";
 
@@ -14,16 +15,13 @@ export default async function Home() {
     <div className={style.container}>
       <section>
         <h3>지금 추천하는 상품</h3>
-        <Suspense fallback={<div>추천상품 데이터 로딩중...</div>}>
-          <GoodItemSkeletonList count={3} />
-
+        <Suspense fallback={<GoodItemSkeletonList count={3} />}>
           <RandomGoods />
         </Suspense>
       </section>
       <section>
         <h3>전체 상품</h3>
-        <Suspense fallback={<div>전체상품 데이터 로딩중...</div>}>
-          <GoodItemSkeletonList count={5} />
+        <Suspense fallback={<GoodItemSkeletonList count={5} />}>
           <AllGoods />
         </Suspense>
       </section>

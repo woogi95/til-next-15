@@ -4,9 +4,7 @@ import { GoodDataType } from "@/types/types";
 import { Suspense } from "react";
 
 async function SearchResult({ keyword }: { keyword: string }) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/products/category/${keyword}`
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/category/${keyword}`);
   const goods: GoodDataType[] = await res.json();
   if (goods.length === 0) {
     return <div>{keyword} 카테고리에 해당하는 제품이 없습니다.</div>;
@@ -20,11 +18,7 @@ async function SearchResult({ keyword }: { keyword: string }) {
   );
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ keyword: string }>;
-}) {
+export default async function Page({ searchParams }: { searchParams: Promise<{ keyword: string }> }) {
   const { keyword } = await searchParams;
 
   return (
@@ -35,7 +29,7 @@ export default async function Page({
       <Suspense
         fallback={
           <div>
-            <strong>{keyword}</strong>검색결과 로딩중..
+            <strong>{keyword}</strong> 검색결과 로딩중...
           </div>
         }
       >

@@ -17,12 +17,14 @@
   flex: 1;
 }
 .title {
-  height: 30px;
+  width: 50%;
+  height: 25px;
   background-color: rgb(220, 220, 220);
   margin-bottom: 10px;
 }
 .category {
-  height: 30px;
+  width: 20%;
+  height: 20px;
   background-color: rgb(220, 220, 220);
 }
 .rating {
