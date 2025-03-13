@@ -148,7 +148,9 @@ import GoodItem from "./good-item";
 export async function RandomGoods() {
   let randomGoods: GoodDataType[] = [];
   try {
-    const resRandom = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?limit=3`);
+    const resRandom = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/products?limit=3`
+    );
     randomGoods = await resRandom.json();
     // console.log(randomGoods);
   } catch (error) {
@@ -176,7 +178,9 @@ import GoodItem from "./good-item";
 export async function AllGoods() {
   let allGoods: GoodDataType[] = [];
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?limit=10`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/products?limit=10`
+    );
     allGoods = await res.json();
     //console.log(allGoods);
   } catch (error) {
@@ -205,11 +209,17 @@ import { GoodDataType } from "@/types/types";
 // 쿼리 처리하기
 // 아래 페이지는 쿼리를 서버에서 읽어들여서 처리함.
 // http://localhost:3000/search?keword=iu
-export default async function Page({ searchParams }: { searchParams: Promise<{ keyword: string }> }) {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ keyword: string }>;
+}) {
   const { keyword } = await searchParams;
   // console.log(keyword);
   // 제품 카테고리 검색으로 진행하겠습니다.
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/category/${keyword}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/products/category/${keyword}`
+  );
   const goods: GoodDataType[] = await res.json();
   if (goods.length === 0) {
     return <div>{keyword} 카테고리에 해당하는 제품이 없습니다.</div>;
@@ -243,20 +253,27 @@ const mockData: GoodDataType = {
   id: 1,
   title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
   price: 109.95,
-  description: "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+  description:
+    "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
   category: "men's clothing",
   image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
   rating: { rate: 3.9, count: 120 },
 };
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   // console.log(id);
 
   let good: GoodDataType | null = null;
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`
+    );
     good = await res.json();
     // console.log(good);
   } catch (error) {
@@ -285,14 +302,14 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 }
 ```
 
-# Data Cashing
+# Data Cacheing
 
 - 서버가 실행되는 동안에 요청된 데이터를 서버에 보관하는 것.
 
 ## 전제조건
 
 - Next.js 의 fetch 를 사용한다.
-- fetch("API", {Cash 옵션} )
+- fetch("API", {cache 옵션} )
 
 ## 종류
 
@@ -318,7 +335,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // BE API 호출시 과정 및 Data Cash 정보
+  // BE API 호출시 과정 및 Data Cache 정보
   logging: {
     fetches: {
       fullUrl: true,
@@ -340,7 +357,10 @@ import GoodItem from "./good-item";
 export async function AllGoods() {
   let allGoods: GoodDataType[] = [];
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?limit=10`, { cache: "force-cache" });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/products?limit=10`,
+      { cache: "force-cache" }
+    );
     allGoods = await res.json();
     //console.log(allGoods);
   } catch (error) {
@@ -367,7 +387,10 @@ import GoodItem from "./good-item";
 export async function RandomGoods() {
   let randomGoods: GoodDataType[] = [];
   try {
-    const resRandom = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?limit=3`, { next: { revalidate: 3 } });
+    const resRandom = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/products?limit=3`,
+      { next: { revalidate: 3 } }
+    );
     randomGoods = await resRandom.json();
     // console.log(randomGoods);
   } catch (error) {
@@ -395,16 +418,23 @@ import { GoodDataType } from "@/types/types";
 import style from "@/app/good/[id]/page.module.css";
 import Image from "next/image";
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   // console.log(id);
 
   let good: GoodDataType | null = null;
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`, {
-      cache: "force-cache",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`,
+      {
+        cache: "force-cache",
+      }
+    );
     good = await res.json();
     // console.log(good);
   } catch (error) {
@@ -466,16 +496,23 @@ export function generateStaticParams() {
   return [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }];
 }
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   // console.log(id);
 
   let good: GoodDataType | null = null;
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`, {
-      cache: "force-cache",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`,
+      {
+        cache: "force-cache",
+      }
+    );
     good = await res.json();
     // console.log(good);
   } catch (error) {
