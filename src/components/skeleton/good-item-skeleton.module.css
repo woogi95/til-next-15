@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  gap: 15px;
+  padding: 20px 10px;
+  border-bottom: 1px solid rgb(220, 220, 220);
+  color: #000;
+  text-decoration: none;
+
+  height: 155px;
+}
+.image {
+  width: 80px;
+  height: 115px;
+  background-color: rgb(220, 220, 220);
+}
+.box {
+  flex: 1;
+}
+.title {
+  height: 30px;
+  background-color: rgb(220, 220, 220);
+  margin-bottom: 10px;
+}
+.category {
+  height: 30px;
+  background-color: rgb(220, 220, 220);
+}
+.rating {
+  height: 21px;
+  background-color: rgb(220, 220, 220);
+}
