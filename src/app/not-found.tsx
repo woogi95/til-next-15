@@ -1,3 +1,3 @@
 export default function NotFound() {
-  return <div>404</div>;
+  return <div>잘못된 경로 입니다.</div>;
 }
