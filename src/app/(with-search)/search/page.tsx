@@ -58,7 +58,7 @@ export default async function Page({
   return (
     <div className={style.container}>
       <h4>
-        카테고리명 : <strong>{keyword}</strong> 검색페이지
+        카테고리명: <strong>{keyword}</strong> 검색페이지
       </h4>
       <Suspense
         fallback={
