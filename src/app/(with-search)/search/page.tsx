@@ -4,7 +4,9 @@ import { GoodDataType } from "@/types/types";
 import { Suspense } from "react";
 
 async function SearchResult({ keyword }: { keyword: string }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/category/${keyword}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/products/category/${keyword}`
+  );
   const goods: GoodDataType[] = await res.json();
   if (goods.length === 0) {
     return <div>{keyword} 카테고리에 해당하는 제품이 없습니다.</div>;
@@ -18,7 +20,39 @@ async function SearchResult({ keyword }: { keyword: string }) {
   );
 }
 
-export default async function Page({ searchParams }: { searchParams: Promise<{ keyword: string }> }) {
+// SEO 적용
+// export const metadata: Metadata = {
+//   title: "상품 검색 페이지",
+//   description: "상품 검색 페이지입니다.",
+//   openGraph: {
+//     title: "상품 검색 페이지",
+//     description: "상품 검색 페이지입니다.",
+//     images: [{ url: "/thumbnail.png" }],
+//   },
+// };
+
+export const generateMetadata = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ keyword: string }>;
+}) => {
+  const { keyword } = await searchParams;
+  return {
+    title: `상품 ${keyword} 검색 페이지`,
+    description: `상품 ${keyword} 검색 페이지입니다.`,
+    openGraph: {
+      title: `상품 ${keyword} 검색 페이지`,
+      description: `상품 ${keyword} 검색 페이지입니다.`,
+      images: [{ url: "/thumbnail.png" }],
+    },
+  };
+};
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ keyword: string }>;
+}) {
   const { keyword } = await searchParams;
 
   return (

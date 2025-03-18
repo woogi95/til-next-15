@@ -3,7 +3,7 @@ export default function Page() {
     "use server";
 
     const nickName = formData.get("nickname");
-
+    console.log(nickName);
     // awiat 서버기능호출(nicName)
     // await sql`INSERT INTO NickName (nickname) VALUES (${nickname})`;
   };
